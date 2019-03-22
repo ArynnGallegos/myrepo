@@ -9,6 +9,8 @@ Connection::Connection(){
 Connection::~Connection(){
     // TODO: Complete me!
     delete birthdate;
+    delete email;
+    delete phone;
 }
 
 
@@ -25,7 +27,7 @@ Connection::Connection(string fname, string lname, \
    this->email = new Email(type1,email);
    //phone:
    string type2 = phone.substr(1,phone.rfind(')')-1);
-   phone = phone.substr(phone.rfind(')')+1);
+   phone = phone.substr(phone.rfind(')')+2);
    this->phone = new Phone(type2,phone);
     
     
@@ -96,7 +98,7 @@ void Connection::set_connection(string filename){
     //Line #4: (phone type) phone number
     std::getline(infile, temp);
     type = temp.substr(1,temp.rfind(')') - 1);
-    temp = temp.substr(temp.rfind(')') + 1);
+    temp = temp.substr(temp.rfind(')') + 2);
     phone = new Phone(type, temp);    
 }
 
@@ -104,13 +106,17 @@ void Connection::set_connection(string filename){
 bool Connection::operator==(const Connection& rhs){
     // TODO: Complete this method!
     // Note: Difference to Lab is that from now on the combination of fname-lname is unique for any connection
-    return false;
+    if ( (this->f_name == rhs.f_name) && 
+         (this->l_name == rhs.l_name))
+        return true;
+    else
+        return false;
 }
 
 
 bool Connection::operator!=(const Connection& rhs){ 
     // TODO: Complete this method!
-    return false;
+    return !(*this == rhs);
 }
 
 
